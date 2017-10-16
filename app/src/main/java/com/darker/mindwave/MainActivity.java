@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancel(DialogInterface arg0) {
                 // TODO Auto-generated method stub
                 Log.e(TAG, "onCancel called!");
-                MainActivity.this.unregisterReceiver(mReceiver);
+//                MainActivity.this.unregisterReceiver(mReceiver);
             }
 
         });
@@ -281,11 +281,21 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Att : ", "" + att);
                     break;
                 case MindDataType.CODE_EEGPOWER:
+                    DecimalFormat numFormat = new DecimalFormat("#,###,###,###");
+                    EEGPower power = (EEGPower) msg.obj;
+                    Log.d("TEST LBeta", "" + numFormat.format(power.lowBeta));
+                    Log.d("TEST HBeta", "" + numFormat.format(power.highBeta));
+                    Log.d("TEST Delta", "" + numFormat.format(power.delta));
+                    Log.d("TEST LAlpha", "" + numFormat.format(power.lowAlpha));
+                    Log.d("TEST HAlpha", "" + numFormat.format(power.highAlpha));
+                    Log.d("TEST LGama", "" + numFormat.format(power.lowGamma));
+                    Log.d("TEST MGama", "" + numFormat.format(power.middleGamma));
+                    Log.d("TEST Theta", "" + numFormat.format(power.theta));
                     Log.d("Att2 : ", "" + att);
                     if (att > 0) {
-                        EEGPower power = (EEGPower) msg.obj;
+//                        EEGPower power = (EEGPower) msg.obj;
                         if (power.isValidate()) {
-                            DecimalFormat numFormat = new DecimalFormat("#,###,###,###");
+//                            DecimalFormat numFormat = new DecimalFormat("#,###,###,###");
                             String highBeta = numFormat.format(power.highBeta);
                             String lowBeta = numFormat.format(power.lowBeta);
                             hbeta.setText("HBeta : " + highBeta);
@@ -329,11 +339,15 @@ public class MainActivity extends AppCompatActivity {
                 mBluetoothAdapter.cancelDiscovery();
             }
             //unregister receiver
-            MainActivity.this.unregisterReceiver(mReceiver);
+//            MainActivity.this.unregisterReceiver(mReceiver);
 
             BluetoothDevice mBluetoothDevice = deviceListApapter.getDevice(arg2);
-            selectDialog.dismiss();
-            selectDialog = null;
+            try {
+                selectDialog.dismiss();
+                selectDialog = null;
+            }catch (Exception e){
+                Log.e(TAG, e.getMessage());
+            }
 
             Log.d(TAG, "onItemClick name: " + mBluetoothDevice.getName() + " , address: " + mBluetoothDevice.getAddress());
             address = mBluetoothDevice.getAddress().toString();
