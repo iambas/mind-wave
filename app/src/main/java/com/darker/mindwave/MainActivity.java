@@ -313,6 +313,9 @@ public class MainActivity extends AppCompatActivity {
                         imgStatus.setColorFilter(Color.BLACK);
                     }
                     break;
+                case MindDataType.CODE_RAW:
+                    Log.d("RAW", "" + msg.arg1);
+                    break;
                 default:
                     break;
             }
